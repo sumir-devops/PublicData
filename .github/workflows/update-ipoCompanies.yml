@@ -2,8 +2,11 @@ name: Update IPO Companies Daily
 
 on:
   schedule:
-    - cron: '15 0 * * *'  # runs daily at 00:15 UTC (05:45 AM NPT)
+    - cron: '15 4 * * *'  # runs daily at 00:15 UTC (05:45 AM NPT)
   workflow_dispatch:        # allows manual trigger from GitHub Actions UI
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true  # opt into Node.js 24 now
 
 jobs:
   fetch-and-push:
@@ -11,10 +14,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2        # latest — supports Node.js 24
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v5.6.0    # latest — supports Node.js 24
         with:
           python-version: '3.11'
 
@@ -27,4 +30,4 @@ jobs:
       - name: Run IPO fetcher
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: python fetch_and_push_ipoCompanies.py
+        run: python fetch_and_push_ipo.py
