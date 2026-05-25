@@ -27,4 +27,4 @@ jobs:
       - name: Run IPO fetcher
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: python fetch_and_push_ipo.py
+        run: python fetch_and_push_ipoCompanies.py
